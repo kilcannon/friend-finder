@@ -1,0 +1,170 @@
+{
+  "name":"Link",
+  "photo":"https://www.ssbwiki.com/images/thumb/a/a8/Link_Artwork.png/440px-Link_Artwork.png",
+  "scores":[
+      5,
+      1,
+      4,
+      4,
+      5,
+      1,
+      2,
+      5,
+      4,
+      1
+    ]
+}
+
+{
+  "name":"Luigi",
+  "photo":"https://www.ssbwiki.com/images/thumb/5/5c/Luigi_MP10.png/400px-Luigi_MP10.png",
+  "scores":[
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2,
+      2
+    ]
+}
+
+{
+  "name":"Kirby",
+  "photo":"https://www.ssbwiki.com/images/thumb/6/63/Kirby_KSA.png/550px-Kirby_KSA.png",
+  "scores":[
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3,
+      3
+    ]
+}
+
+{
+  "name":"Pikachu",
+  "photo":"https://www.ssbwiki.com/images/0/0f/Pikachu_FireRed_LeafGreen.png",
+  "scores":[
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4,
+      4
+    ]
+}
+
+{
+  "name":"Bowser",
+  "photo":"https://www.ssbwiki.com/images/thumb/6/68/Bowser_MP10.png/500px-Bowser_MP10.png",
+  "scores":[
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5,
+      5
+    ]
+}
+
+{
+  "name":"Mega Man",
+  "photo":"https://www.ssbwiki.com/images/a/a6/MM10-MegaMan.png",
+  "scores":[
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1,
+      1
+    ]
+}
+
+{
+  "name":"Samus Aran",
+  "photo":"https://www.ssbwiki.com/images/thumb/6/68/Samus_Other_M_Artwork.png/500px-Samus_Other_M_Artwork.png",
+  "scores":[
+      5,
+      1,
+      5,
+      1,
+      5,
+      1,
+      5,
+      1,
+      5,
+      1
+    ]
+}
+
+{
+  "name":"Jigglypuff",
+  "photo":"https://www.ssbwiki.com/images/thumb/0/0c/Jigglypuff_FireRed_LeafGreen.png/550px-Jigglypuff_FireRed_LeafGreen.png",
+  "scores":[
+      2,
+      3,
+      2,
+      3,
+      2,
+      3,
+      2,
+      3,
+      2,
+      3
+    ]
+}
+
+{
+  "name":"Wario",
+  "photo":"https://www.ssbwiki.com/images/thumb/3/35/Wario_WarioWareGold.png/600px-Wario_WarioWareGold.png",
+  "scores":[
+      3,
+      4,
+      3,
+      4,
+      3,
+      4,
+      3,
+      4,
+      3,
+      4
+    ]
+}
+
+{
+  "name":"Princess Peach",
+  "photo":"https://www.ssbwiki.com/images/thumb/e/e9/Peach_MP10.png/500px-Peach_MP10.png",
+  "scores":[
+      2,
+      4,
+      2,
+      4,
+      2,
+      3,
+      1,
+      5,
+      4,
+      3
+    ]
+}
+

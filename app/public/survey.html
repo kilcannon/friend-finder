@@ -1,19 +1,10 @@
-<html lang="en"><head>
-  <meta charset="UTF-8">
-  <title>FriendFinder</title>
-
-  <!-- Latest compiled and minified CSS & JS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-  <script src="https://code.jquery.com/jquery.js"></script>
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-
-  <!-- Font Awesome Glyphicons -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css">
-
-  <!-- Chosen -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.css">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/chosen/1.5.1/chosen.jquery.min.js"></script>
-
+<head>
+    <meta charset="UTF-8">
+    <title>FriendFinder</title>
+    <link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/cerulean/bootstrap.min.css" rel="stylesheet" integrity="sha384-zF4BRsG/fLiTGfR9QL82DrilZxrwgY/+du4p/c7J72zZj+FLYq4zY00RylP9ZjiT" crossorigin="anonymous">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 </head>
 
 <body>
@@ -151,122 +142,116 @@
     <br>
 
     <!-- Submit Button -->
-    <button type="submit" class="btn btn-primary btn-lg btn-block" id="submit"><i class="fa fa-check-circle" aria-hidden="true"></i>
-     Submit</button>
+    <button type="button" id="submit" class="btn btn-success btn-lg btn-block" data-toggle="modal" data-target="#modal"><i class="fa fa-check-square" aria-hidden="true"></i> Submit</button>
 
     <hr>
     <footer class="footer">
       <div class="container">
-        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/afhaque/friendfinder">GitHub Repo</a></p>
+        <p><a href="/api/friends">API Friends List</a> | <a href="https://github.com/kilcannon/friend-finder">GitHub Repo</a></p>
       </div>
     </footer>
 
   </div>
 
-  <!-- Modal -->
-  <div id="results-modal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
-
-      <!-- Modal content-->
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal">×</button>
-          <h2 class="modal-title"><strong>Best Match</strong></h2>
+    <div class="modal fade" id="modal" role="dialog">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title"></h4>
+                </div>
+                <div class="modal-body"></div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-          <h2 id="match-name"></h2>
-          <img id="match-img" src="https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/6/005/064/1bd/3435aa3.jpg" alt="">
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-        </div>
-      </div>
-
     </div>
-  </div>
 
-  <script type="text/javascript">
-    // Chosen CSS
-    var config = {
-      ".chosen-select": {},
-      ".chosen-select-deselect": {
-        allow_single_deselect: true
-      },
-      ".chosen-select-no-single": {
-        disable_search_threshold: 10
-      },
-      ".chosen-select-no-results": {
-        no_results_text: "Oops, nothing found!"
-      },
-      ".chosen-select-width": {
-        width: "95%"
-      }
-    };
+    <script type="text/javascript">
+    // declare global variables
+    var nameVal
+    var imageVal
+    var q1Val
+    var q2Val
+    var q3Val
+    var q4Val
+    var q5Val
+    var q6Val
+    var q7Val
+    var q8Val
+    var q9Val
+    var q10Val
+    var newPerson
+    $('#submit').on('click', function(event) {
+        event.preventDefault()
 
-    for (var selector in config) {
-      $(selector).chosen(config[selector]);
+        nameVal = $('#name').val()
+        imageVal = $('#image').val()
+        q1Val = parseInt($('#q1').val())
+        q2Val = parseInt($('#q2').val())
+        q3Val = parseInt($('#q3').val())
+        q4Val = parseInt($('#q4').val())
+        q5Val = parseInt($('#q5').val())
+        q6Val = parseInt($('#q6').val())
+        q7Val = parseInt($('#q7').val())
+        q8Val = parseInt($('#q8').val())
+        q9Val = parseInt($('#q9').val())
+        q10Val = parseInt($('#q10').val())
+        newPerson = {
+            name: nameVal,
+            image: imageVal,
+            responses: [q1Val, q2Val, q3Val, q4Val, q5Val, q6Val, q7Val, q8Val, q9Val, q10Val],
+            total: q1Val + q2Val + q3Val + q4Val + q5Val + q6Val + q7Val + q8Val + q9Val + q10Val
+        }
+
+        var modalTitle = $('.modal-title')
+        var modalBody = $('.modal-body')
+        var modal = $('#modal')
+        if (formIsValid()) {
+            $.get("/api/friends", function(data) {
+                var match = makeMatch(data)
+                if (match.name !== undefined) {
+                    modalTitle.text('You have a match!')
+                    modalBody.html('<p class="strong">You\'re most compatible with:</p><p>' + match.name + '</p><img src="' + match.image + '" height="200">')
+                } else {
+                    modalTitle.text('Too few friends')
+                    modalBody.text('Sorry, there are too few friends to match you with.')
+                }
+            }).then(function() {
+                modal.show()
+                $('.form')[0].reset()
+                $.post("/api/friends", newPerson)
+            })
+        } else {
+            modalTitle.text('Error')
+            modalBody.text('Please make sure all questions have been filled in.')
+            modal.show()
+        }
+    })
+    function formIsValid() {
+        return (nameVal !== '' && imageVal !== '' && !isNaN(q1Val) && !isNaN(q2Val) && !isNaN(q3Val) && !isNaN(q4Val) &&
+            !isNaN(q5Val) && !isNaN(q6Val) && !isNaN(q7Val) && !isNaN(q8Val) && !isNaN(q9Val) && !isNaN(q10Val))
     }
+    function makeMatch(data) {
+        var difference = 50
+        var minName
+        var minImage
+        data.forEach(function(person) {
+            var localDiff = Math.abs(newPerson.total - person.total)
+            console.log(localDiff)
+            if (localDiff < difference) {
+                difference = localDiff
+                minName = person.name
+                minImage = person.photo
+            }
+        })
+        return {
+            name: minName,
+            image: minImage
+        }
+    }
+    </script>
+</body>
 
-    // Capture the form inputs
-    $("#submit").on("click", function(event) {
-      event.preventDefault();
-
-      // Form validation
-      function validateForm() {
-        var isValid = true;
-        $(".form-control").each(function() {
-          if ($(this).val() === "") {
-            isValid = false;
-          }
-        });
-
-        $(".chosen-select").each(function() {
-
-          if ($(this).val() === "") {
-            isValid = false;
-          }
-        });
-        return isValid;
-      }
-
-      // If all required fields are filled
-      if (validateForm()) {
-        // Create an object for the user"s data
-        var userData = {
-          name: $("#name").val(),
-          photo: $("#photo").val(),
-          scores: [
-            $("#q1").val(),
-            $("#q2").val(),
-            $("#q3").val(),
-            $("#q4").val(),
-            $("#q5").val(),
-            $("#q6").val(),
-            $("#q7").val(),
-            $("#q8").val(),
-            $("#q9").val(),
-            $("#q10").val()
-          ]
-        };
-
-        // AJAX post the data to the friends API.
-        $.post("/api/friends", userData, function(data) {
-
-          // Grab the result from the AJAX post so that the best match's name and photo are displayed.
-          $("#match-name").text(data.name);
-          $("#match-img").attr("src", data.photo);
-
-          // Show the modal with the best match
-          $("#results-modal").modal("toggle");
-
-        });
-      } else {
-        alert("Please fill out all fields before submitting!");
-      }
-    });
-  </script>
-
-
-
-
-</body></html>
+</html>
